@@ -1,3 +1,4 @@
+// mesh of a horseshoe magnet
 Geometry.ExtrudeReturnLateralEntities = 0;
 
 // geometric parameters
