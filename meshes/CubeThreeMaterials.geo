@@ -31,22 +31,15 @@ volume02[] = Extrude{0, 0, depth / 2.0} { Surface{volume01[0]}; Layers{nz}; };
 volume03[] = Extrude{0, 0, depth} { Surface{plane02[1]}; Layers{2*nz}; };
 
 // define the boundary indicators
-Physical Surface(10) = {volume01[5], volume02[5],   // left surface
-                        volume03[5]};
-Physical Surface(20) = {volume01[3], volume02[3],   // right surface
-                        volume03[3]};
-Physical Surface(30) = {plane01[1], plane02[1]};    // bottom surface
-Physical Surface(40) = {volume02[0], volume03[0]};  // top surface
-Physical Surface(50) = {volume01[2], volume02[2]};  // front surface
-Physical Surface(60) = {volume03[4]};               // back surface
+Physical Surface("left surface", 200) = {volume01[5], volume02[5], volume03[5]};
+Physical Surface("right surface", 201) = {volume01[3], volume02[3], volume03[3]};
+Physical Surface("bottom surface", 202) = {plane01[1], plane02[1]};
+Physical Surface("top surface", 203) = {volume02[0], volume03[0]};
+Physical Surface("front surface", 204) = {volume01[2], volume02[2]};
+Physical Surface("back surface", 205) = {volume03[4]};
 
 // define the material indicators
-Physical Volume(0) = volume01[1];
-Physical Volume(1) = volume02[1];
-Physical Volume(2) = volume03[1];
+Physical Volume("material one", 300) = volume01[1];
+Physical Volume("material two", 301) = volume02[1];
+Physical Volume("material three", 302) = volume03[1];
 
-// make a list of regions
-allParts[] = {volume01[1], volume02[1], volume03[1]};
-
-// meshing surfaces by the transfinite algorithm
-Transfinite Surface {allParts[]};

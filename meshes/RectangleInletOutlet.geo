@@ -38,6 +38,12 @@ Line(10) = {3, 4};
 Line Loop(12) = {8, 9, 10, 1, 2, 3, 4, 5, -6, 7};
 Plane Surface(12) = {12};
 
+// physical regions
+Physical Curve("inlet",100) = {1};
+Physical Curve("outlet",101) = {6};
+Physical Curve("walls",102) = {2, 3, 4, 5, 7, 8, 9, 10};
+Physical Surface("fluid volume",200) = {12};
+
 // definition of size fields
 // box in rectangular section
 Field[1] = Box;

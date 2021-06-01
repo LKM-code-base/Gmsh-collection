@@ -1,8 +1,3 @@
-// Ids of the physical regions
-int_face_id = 100;
-ext_face_id = 101;
-shell_vol_id = 100;
-
 // characteristic length
 int_len = 0.125;
 ext_len = 0.25;
@@ -39,29 +34,34 @@ Macro ConstructSphereSurface
 
     // surfaces
     tmp = newreg; Line Loop(tmp) = {circleList02[3], circleList02[0], -circleList01[0], -circleList01[3]};
-    upNorth = newreg; Ruled Surface(upNorth) = {tmp};
+    upNorth = newreg; Surface(upNorth) = {tmp};
     tmp = newreg; Line Loop(tmp) = {circleList02[1], circleList02[2], circleList01[3], circleList01[0]};
-    upSouth = newreg; Ruled Surface(upSouth) = {tmp};
+    upSouth = newreg; Surface(upSouth) = {tmp};
     tmp = newreg; Line Loop(tmp) = {circleList02[3], circleList02[0], circleList01[1], circleList01[2]};
-    botNorth = newreg; Ruled Surface(botNorth) = {tmp};
+    botNorth = newreg; Surface(botNorth) = {tmp};
     tmp = newreg; Line Loop(tmp) = {circleList02[1], circleList02[2], -circleList01[2], -circleList01[1]};
-    botSouth = newreg; Ruled Surface(botSouth) = {tmp};
+    botSouth = newreg; Surface(botSouth) = {tmp};
 
     // outer volume
     surfaceLoop = newreg; Surface Loop(surfaceLoop) = {upNorth, upSouth, botNorth, botSouth};
     surfaceList[] = {upNorth, upSouth, botNorth, botSouth};
 Return
 
-// inner volume
+// inner sphere
 rho = r; cl = int_len;
 Call ConstructSphereSurface;
 innerSurfLoop = surfaceLoop;
-Physical Surface(int_face_id) = surfaceList[];
+// physical region
+Physical Surface("inner surface", 100) = surfaceList[];
 
-// shell volume
+// outer sphere
 rho = R; cl = ext_len;
 Call ConstructSphereSurface;
 shellSurfLoop = surfaceLoop;
-Physical Surface(ext_face_id) = surfaceList[];
+// physical region
+Physical Surface("outer surface", 101) = surfaceList[];
+
+// shell volume
 shellVolume = newreg; Volume(shellVolume) = {shellSurfLoop, innerSurfLoop};
-Physical Volume(shell_vol_id) = shellVolume;
+// physical volume
+Physical Volume("shell volume", 100) = shellVolume;

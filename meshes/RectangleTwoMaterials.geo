@@ -31,11 +31,3 @@ Physical Line(40) = {plane02[0]};
 Physical Surface(0) = plane01[1];
 Physical Surface(1) = plane02[1];
 
-// make a list of regions
-allParts[] = {plane01[1], plane02[1]};
-
-// meshing surfaces by the transfinite algorithm
-Transfinite Surface {allParts[]};
-
-// use quadriteral elements
-Recombine Surface {allParts[]};

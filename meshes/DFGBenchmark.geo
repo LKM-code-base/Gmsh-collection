@@ -101,6 +101,14 @@ Plane Surface(47) = {46};
 Line Loop(48) = {18, 20, -24, -27};
 Plane Surface(49) = {48};
 
+// physical regions
+Physical Curve("inlet", 100) = {9, 10};
+Physical Curve("outlet", 101) = {4, 5};
+Physical Curve("lower wall", 102) = {1, 2, 3};
+Physical Curve("upper wall", 103) = {6, 7, 8};
+Physical Curve("cylinder", 104) = {11, 12, 13, 14, 15, 16, 17, 18};
+Physical Surface("fluid", 200) = {31, 33, 35, 37, 39, 41, 43, 45, 47, 49};
+
 // definition of size fields
 // box behind the cylinder
 Field[1] = Box;
@@ -131,3 +139,4 @@ Field[4].LcMin = 0.2 * rc;
 Field[5] = Min;
 Field[5].FieldsList = {1, 2, 4};
 Background Field = 5;
+

@@ -14,11 +14,6 @@ ell =  k * Rm;
 magLen = 1.0 / 8.0;
 farLen = 1.0 / 2.0;
 
-// Ids of the physical regions
-face_id = 200;
-int_id = 201;
-ext_id = 202;
-
 // points of the horseshoe
 // circular segment
 upCenter = newp; Point(upCenter) = {0, 0, d, magLen};
@@ -78,6 +73,7 @@ For t In {1:20:2}
 	row = row + 1;
 EndFor
 
+// order the surfaces
 dump = MagSurf[0];
 MagSurf[0] = MagSurf[1];
 MagSurf[1] = MagSurf[2];
@@ -86,4 +82,8 @@ MagSurf[2] = dump;
 // volumes
 magnetSurface = newreg; Surface Loop(magnetSurface) = MagSurf[];
 magnetVolume = newreg; Volume(magnetVolume) = {magnetSurface};
+
+// physical regions
+Physical Surface("whole surface", 200) = MagSurf[];
+Physical Volume("whole volume", 300) = magnetVolume;
 

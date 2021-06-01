@@ -24,14 +24,14 @@ plane02[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane01[0]}; Layers{nph
 plane03[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane02[0]}; Layers{nphi}; };
 plane04[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane03[0]}; Layers{nphi}; Recombine; };
 
-// boundary indicators
-top_surface = 100;
-bottom_surface = 101;
-inner_surface = 102;
-outer_surface = 103;
-
 // group surfaces and assign an indicator
-Physical Surface(top_surface) = {plane01[4], plane02[4], plane03[4], plane04[4]};
-Physical Surface(bottom_surface) = {plane01[2], plane02[2], plane03[2], plane04[2]};
-Physical Surface(inner_surface) = {plane01[5], plane02[5], plane03[5], plane04[5]};
-Physical Surface(outer_surface) = {plane01[3], plane02[3], plane03[3], plane04[3]};
+Physical Surface("top surface", 200) = {plane01[4], plane02[4],
+                                        plane03[4], plane04[4]};
+Physical Surface("bottom surface", 201) = {plane01[2], plane02[2],
+                                           plane03[2], plane04[2]};
+Physical Surface("inner surface", 202) = {plane01[5], plane02[5],
+                                          plane03[5], plane04[5]};
+Physical Surface("outer surface", 203) = {plane01[3], plane02[3],
+                                          plane03[3], plane04[3]};
+Physical Volume("whole volume", 300) = {plane01[1], plane02[1],
+                                        plane03[1], plane04[1]}; 

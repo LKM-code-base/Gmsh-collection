@@ -41,21 +41,22 @@ the array ``sec`` contains object identifiers in the following order:
 
 */
 // first section
-secA[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} {
-Surface{6};
-};
+secA[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} { Surface{6}; };
 // second section
-secB[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} {
-Surface{secA[0]};
+secB[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} { Surface{secA[0] };
 };
 // third section
-secC[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} {
-Surface{secB[0]};
+secC[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} { Surface{secB[0] };
 };
 // fourth section
-secD[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} {
-Surface{secC[0]};
+secD[] = Extrude {{0, 0, 1}, {0, 0, 0}, Pi/2} { Surface{secC[0] };
 };
+
+// physical groups
+Physical Surface("bottom surface", 200) = {secA[2], secB[2], secC[2], secD[2]};
+Physical Surface("top surface", 201) = {secA[4], secB[4], secC[4], secD[4]};
+Physical Surface("outer surface", 202) = {secA[3], secB[3], secC[3], secD[3]};
+Physical Volume("whole volume", 300) = {secA[1], secB[1], secC[1], secD[1]};
 
 // size fields
 // distance field
