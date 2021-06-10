@@ -1,4 +1,4 @@
-// mesh of rectangle with an inlet and outlet
+// mesh of channel with a backward facing step
 
 // geometry parameters
 l = 6.0;

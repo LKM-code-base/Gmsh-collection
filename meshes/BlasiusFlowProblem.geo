@@ -1,5 +1,4 @@
-// mesh of channel with a backward facing step
-
+// mesh of a plate embedded in free space
 // geometry parameters
 l = 6.0;
 h = 2.0;
@@ -12,9 +11,9 @@ cl__min = h / 24.0;
 
 // points
 Point(1) = {0, 0, 0, cl__max};
-Point(2) = {l, 0, 0, cl__max};    // corner point
-Point(3) = {l, 0.5 * h, 0, cl__max};        // corner point
-Point(4) = {l - a, 0.5 * h, 0, cl__max};
+Point(2) = {l, 0, 0, cl__max};    
+Point(3) = {l, 0.5 * h, 0, cl__max};
+Point(4) = {l - a, 0.5 * h, 0, cl__max};    // tip of the plate
 Point(5) = {0, 0.5 * h, 0, cl__max}; 
 Point(6) = {0, h, 0, cl__max};
 Point(7) = {l, h, 0, cl__max};
