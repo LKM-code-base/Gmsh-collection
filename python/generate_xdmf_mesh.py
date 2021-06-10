@@ -86,10 +86,10 @@ def generate_xdmf_mesh(geo_filename):
     # extract facet mesh (codimension one)
     facet_mesh = _create_meshio_mesh(mesh, facet_type, prune_z=prune_z)
     xdmf_facet_marker_filename = filename + "_facet_markers.xdmf"
-    meshio.write(xdmf_facet_marker_filename, facet_mesh)
+    meshio.write(xdmf_facet_marker_filename, facet_mesh, data_format="XML")
     # extract facet mesh (codimension one)
     cell_mesh = _create_meshio_mesh(mesh, cell_type, prune_z=prune_z)
     xdmf_filename = geo_filename.replace(".geo", ".xdmf")
-    meshio.write(xdmf_filename, cell_mesh)
+    meshio.write(xdmf_filename, cell_mesh, data_format="XML")
     # delete msh file
     subprocess.run(["rm", "-rf", msh_filename], check=True)
