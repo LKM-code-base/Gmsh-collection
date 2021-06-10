@@ -129,6 +129,7 @@ Field[2].YMax = h;
 // refinement of the channel walls and the cylinder boundary
 Field[3] = Distance;
 Field[3].EdgesList = {6, 7, 8, 9, 10, 1, 2, 3, 11, 12, 13, 14, 15, 16, 17, 18};
+Field[3].NNodesByEdge = 200;
 Field[4] = Threshold;
 Field[4].IField = 3;
 Field[4].DistMax = 0.5 * rc;
@@ -139,4 +140,6 @@ Field[4].LcMin = 0.2 * rc;
 Field[5] = Min;
 Field[5].FieldsList = {1, 2, 4};
 Background Field = 5;
+
+Mesh.CharacteristicLengthExtendFromBoundary = 0;
 

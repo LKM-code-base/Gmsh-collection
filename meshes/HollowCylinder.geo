@@ -22,7 +22,7 @@ plane00[] = Extrude{0, 0, height} { Line{lineX[1]}; Layers{nz}; };
 plane01[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane00[1]}; Layers{nphi}; };
 plane02[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane01[0]}; Layers{nphi}; };
 plane03[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane02[0]}; Layers{nphi}; };
-plane04[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane03[0]}; Layers{nphi}; Recombine; };
+plane04[] = Extrude{{0, 0, 1}, {0, 0 ,0}, Pi/2}{ Surface{plane03[0]}; Layers{nphi}; };
 
 // group surfaces and assign an indicator
 Physical Surface("top surface", 200) = {plane01[4], plane02[4],
