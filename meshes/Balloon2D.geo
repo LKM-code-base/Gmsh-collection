@@ -1,3 +1,5 @@
+// mesh of a balloon in 3D (semi-circular annulus)
+
 // constants
 ri = 0.9;
 ro = 1.0;
