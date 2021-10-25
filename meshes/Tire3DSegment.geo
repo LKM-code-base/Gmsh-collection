@@ -1,5 +1,4 @@
-//mesh of a tire segment
-
+// mesh of a tire segment
 SetFactory("OpenCASCADE");
 
 // load STEP file
