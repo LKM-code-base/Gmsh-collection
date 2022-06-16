@@ -5,3 +5,5 @@ channels:
 dependencies:
   - gmsh
   - meshio
+prefix: /home/sg/anaconda3/envs/gmsh-collection
+
