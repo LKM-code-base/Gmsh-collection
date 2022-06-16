@@ -28,6 +28,6 @@ Physical Line("right", 30) = {plane01[2], plane02[2]};
 Physical Line("top", 40) = {plane02[0]};
 
 // define the material indicators
-Physical Surface("hard_material", 1) = plane01[1];
-Physical Surface("soft_material", 2) = plane02[1];
+Physical Surface("hard material", 1) = plane01[1];
+Physical Surface("soft material", 2) = plane02[1];
 
