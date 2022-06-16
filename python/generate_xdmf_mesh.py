@@ -62,7 +62,7 @@ def generate_xdmf_mesh(geo_filename):
     # generate msh file
     msh_file = geo_filename.replace(".geo", ".msh")
     assert msh_file.endswith(".msh")
-    subprocess.run(["gmsh", "-v0", "-3", geo_filename], stdout=subprocess.DEVNULL, check=True)
+    subprocess.run(["gmsh", "-v", "0", "-3", geo_filename], stdout=subprocess.DEVNULL, check=True)
     # read msh file
     assert path.exists(msh_file)
     mesh = meshio.read(msh_file)

@@ -11,8 +11,9 @@ Physical Surface("outer surface", 20) = {1, 2, 3, 4, 5, 8, 9, 10, 11, 12, 13,
 Physical Surface("cutting plane x", 30) = {6};
 Physical Surface("cutting plane y", 40) = {25};
 Physical Surface("cutting plane z", 50) = {26};
-
+Physical Volume("material", 100) = {1};
 
 // specify a global mesh size
 Mesh.MeshSizeMin = 0.05;
 Mesh.MeshSizeMax = 0.05;
+

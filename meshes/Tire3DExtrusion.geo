@@ -14,6 +14,7 @@ Physical Surface("inner surface", 501) = {27, 28};
 Physical Surface("front plane z", 502) = {46};
 Physical Surface("back plane z", 503) = {47};
 Physical Surface("fixed surface", 504) = {26, 29};
+Physical Volume("material", 600) = {1};
 
 // specify a global mesh size
 Mesh.MeshSizeMin = 0.05;

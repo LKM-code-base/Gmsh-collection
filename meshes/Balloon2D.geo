@@ -31,13 +31,11 @@ Circle(15) = {7, 1, 8};
 Circle(16) = {10, 1, 7};
 
 // Surfaces
-
-// surfaces connecting both spheres
 Curve Loop(17) = {16, 15, -11, -13, -14, 12};
 Plane Surface(18) = {17};
 
 // Physical regions
-Physical Line("inner surface", 1) = {1, 4};
-Physical Line("outer surface", 2) = {9, 12};
-Physical Line("cutting plane y", 3) = {12, 54};
-
+Physical Curve("cutting plane y", 101) = {11, 12};
+Physical Curve("inner surface", 102) = {13, 14};
+Physical Curve("outer surface", 103) = {15, 16};
+Physical Surface("material", 200) = {18};
