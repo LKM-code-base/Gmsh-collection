@@ -14,8 +14,8 @@ def _create_meshio_mesh(mesh, cell_type, prune_z=False):
     # input check
     assert isinstance(mesh, meshio.Mesh)
     assert isinstance(cell_type, str)
-    assert cell_type in ("line", "triangle", "tetra")
     assert isinstance(prune_z, bool)
+    assert cell_type in ("line", "triangle", "tetra")
     # extract cells
     cells = mesh.get_cells_type(cell_type)
     # extract physical regions
@@ -27,23 +27,24 @@ def _create_meshio_mesh(mesh, cell_type, prune_z=False):
             data_name = "cell_markers"
         elif cell_type == "line":
             data_name = "facet_markers"
-        else:
+        else:  # pragma: no cover
             raise RuntimeError()
     elif "triangle" in mesh.cells_dict and "tetra" in mesh.cells_dict:
         if cell_type == "tetra":
             data_name = "cell_markers"
         elif cell_type == "triangle":
             data_name = "facet_markers"
-        else:
+        else:  # pragma: no cover
             raise RuntimeError()
-    else:
+    else:  # pragma: no cover
         raise RuntimeError()
     # create mesh object
-    out_mesh = meshio.Mesh(points=mesh.points, cells={cell_type: cells},
-                           cell_data={data_name: [cell_data]})
-    # remove z-component
     if prune_z:
-        out_mesh.prune_z_0()
+        out_mesh = meshio.Mesh(points=mesh.points[:, :2], cells={cell_type: cells},
+                               cell_data={data_name: [cell_data]})
+    else:  # pragma: no cover
+        out_mesh = meshio.Mesh(points=mesh.points, cells={cell_type: cells},
+                               cell_data={data_name: [cell_data]})
     return out_mesh
 
 
@@ -58,38 +59,38 @@ def generate_xdmf_mesh(geo_filename):
     # input check
     assert isinstance(geo_filename, str)
     assert path.exists(geo_filename)
-    filename = geo_filename[:geo_filename.index(".geo")]
     # generate msh file
-    msh_filename = geo_filename.replace(".geo", ".msh")
-    assert msh_filename.endswith(".msh")
-    subprocess.run(["gmsh", "-3", geo_filename], check=True)
+    msh_file = geo_filename.replace(".geo", ".msh")
+    assert msh_file.endswith(".msh")
+    subprocess.run(["gmsh", "-v0", "-3", geo_filename], stdout=subprocess.DEVNULL, check=True)
     # read msh file
-    mesh = meshio.read(msh_filename)
+    assert path.exists(msh_file)
+    mesh = meshio.read(msh_file)
     # determine dimension
     if "triangle" in mesh.cells_dict and "tetra" not in mesh.cells_dict:
         assert "line" in mesh.cell_data_dict["gmsh:physical"]
         dim = 2
-    elif "triangle" in mesh.cells_dict and "tetra" in mesh.cells_dict:
+        prune_z = True
+    elif "triangle" in mesh.cells_dict and "tetra" in mesh.cells_dict:  # pragma: no cover
         assert "triangle" in mesh.cell_data_dict["gmsh:physical"]
         dim = 3
-    else:
+        prune_z = False
+    else:  # pragma: no cover
         raise RuntimeError()
     # specify cell types
     if dim == 2:
         facet_type = "line"
         cell_type = "triangle"
-        prune_z = True
-    elif dim == 3:
+    elif dim == 3:  # pragma: no cover
         facet_type = "triangle"
         cell_type = "tetra"
-        prune_z = False
     # extract facet mesh (codimension one)
     facet_mesh = _create_meshio_mesh(mesh, facet_type, prune_z=prune_z)
-    xdmf_facet_marker_filename = filename + "_facet_markers.xdmf"
-    meshio.write(xdmf_facet_marker_filename, facet_mesh, data_format="XML")
+    xdmf_facet_marker_file = msh_file.replace(".msh", "_facet_markers.xdmf")
+    meshio.write(xdmf_facet_marker_file, facet_mesh, data_format="XML")
     # extract facet mesh (codimension one)
     cell_mesh = _create_meshio_mesh(mesh, cell_type, prune_z=prune_z)
-    xdmf_filename = geo_filename.replace(".geo", ".xdmf")
-    meshio.write(xdmf_filename, cell_mesh, data_format="XML")
+    xdmf_file = msh_file.replace(".msh", ".xdmf")
+    meshio.write(xdmf_file, cell_mesh, data_format="XML")
     # delete msh file
-    subprocess.run(["rm", "-rf", msh_filename], check=True)
+    subprocess.run(["rm", "-rf", msh_file], check=True)

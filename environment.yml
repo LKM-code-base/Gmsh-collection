@@ -1,0 +1,7 @@
+name: gmsh-collection
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - gmsh
+  - meshio
